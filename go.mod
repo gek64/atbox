@@ -1,5 +1,5 @@
 module atbox
 
-require gek_exec v0.0.0
+go 1.19
 
-replace gek_exec => ../gek/gek_exec
+require github.com/gek64/gek v1.0.1

@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"gek_exec"
+	"github.com/gek64/gek/gExec"
 	"log"
 	"os"
 	"os/exec"
@@ -60,34 +60,35 @@ func getAppListFromADB() (apps appsList, err error) {
 }
 
 // ShowAppsList Options are:
-//      -f: see their associated file
-//      -a: all known packages (but excluding APEXes)
-//      -d: filter to only show disabled packages
-//      -e: filter to only show enabled packages
-//      -s: filter to only show system packages
-//      -3: filter to only show third party packages
-//      -i: see the installer for the packages
-//      -l: ignored (used for compatibility with older releases)
-//      -U: also show the package UID
-//      -u: also include uninstalled packages
-//      --show-versioncode: also show the version code
-//      --apex-only: only show APEX packages
-//      --uid UID: filter to only show packages with the given UID
-//      --user USER_ID: only list packages belonging to the given user
+//
+//	-f: see their associated file
+//	-a: all known packages (but excluding APEXes)
+//	-d: filter to only show disabled packages
+//	-e: filter to only show enabled packages
+//	-s: filter to only show system packages
+//	-3: filter to only show third party packages
+//	-i: see the installer for the packages
+//	-l: ignored (used for compatibility with older releases)
+//	-U: also show the package UID
+//	-u: also include uninstalled packages
+//	--show-versioncode: also show the version code
+//	--apex-only: only show APEX packages
+//	--uid UID: filter to only show packages with the given UID
+//	--user USER_ID: only list packages belonging to the given user
 func showAppsList(options string) (output string, err error) {
-	out, err := gek_exec.Output("adb shell pm list package " + options)
+	out, err := gExec.Output("adb shell pm list package " + options)
 	if err != nil {
 		return "", err
 	}
 
-	return string(out), nil
+	return out, nil
 }
 
 func (apps appsList) clear() {
 	for _, app := range apps {
 		cmd := exec.Command("adb", "shell", "pm", "clear", app)
 
-		err := gek_exec.Run(cmd)
+		err := gExec.Run(cmd)
 		if err != nil {
 			log.Println(err)
 		}
@@ -98,7 +99,7 @@ func (apps appsList) uninstall() {
 	for _, app := range apps {
 		cmd := exec.Command("adb", "shell", "pm", "uninstall", app)
 
-		err := gek_exec.Run(cmd)
+		err := gExec.Run(cmd)
 		if err != nil {
 			log.Println(err)
 		}
@@ -109,7 +110,7 @@ func (apps appsList) uninstallUser(uid int) {
 	for _, app := range apps {
 		cmd := exec.Command("adb", "shell", "pm", "uninstall", "--user", strconv.Itoa(uid), app)
 
-		err := gek_exec.Run(cmd)
+		err := gExec.Run(cmd)
 		if err != nil {
 			log.Println(err)
 		}
@@ -120,7 +121,7 @@ func (apps appsList) reinstall() {
 	for _, app := range apps {
 		cmd := exec.Command("adb", "shell", "cmd", "package", "install-existing", app)
 
-		err := gek_exec.Run(cmd)
+		err := gExec.Run(cmd)
 		if err != nil {
 			log.Println(err)
 		}
@@ -131,7 +132,7 @@ func (apps appsList) disable() {
 	for _, app := range apps {
 		cmd := exec.Command("adb", "shell", "pm", "disable", app)
 
-		err := gek_exec.Run(cmd)
+		err := gExec.Run(cmd)
 		if err != nil {
 			log.Println(err)
 		}
@@ -142,7 +143,7 @@ func (apps appsList) disableUser() {
 	for _, app := range apps {
 		cmd := exec.Command("adb", "shell", "pm", "disable-user", app)
 
-		err := gek_exec.Run(cmd)
+		err := gExec.Run(cmd)
 		if err != nil {
 			log.Println(err)
 		}
@@ -153,7 +154,7 @@ func (apps appsList) enable() {
 	for _, app := range apps {
 		cmd := exec.Command("adb", "shell", "pm", "enable", app)
 
-		err := gek_exec.Run(cmd)
+		err := gExec.Run(cmd)
 		if err != nil {
 			log.Println(err)
 		}
