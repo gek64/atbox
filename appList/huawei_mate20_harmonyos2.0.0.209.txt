@@ -65,7 +65,7 @@ com.huawei.android.karaoke
 com.huawei.android.wfdft
 
 // 华为应用市场
-com.huawei.appmarket
+//com.huawei.appmarket
 
 // AREngineServer
 com.huawei.arengine.service
