@@ -286,8 +286,8 @@ com.huawei.magazine
 // 数据管理服务
 //com.huawei.nb.service
 
-// HwNearby(华为附近服务)
-com.huawei.nearby
+// HwNearby(华为附近服务,鸿蒙3.0卸载会导致导航手势失效)
+//com.huawei.nearby
 
 // 号码识别
 //com.huawei.numberidentity
